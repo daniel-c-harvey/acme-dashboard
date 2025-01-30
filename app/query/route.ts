@@ -1,4 +1,4 @@
-import sql from '@/app/data/sql';
+import sql from '@/app/lib/sql';
 
 async function listInvoices() {
 	const data = await sql`
