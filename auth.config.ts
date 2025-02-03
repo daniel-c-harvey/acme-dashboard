@@ -1,6 +1,4 @@
 import type { NextAuthConfig } from 'next-auth';
-import Credentials from "@auth/core/providers/credentials";
-import {z} from "zod";
 
 export const authConfig = {
     pages: {

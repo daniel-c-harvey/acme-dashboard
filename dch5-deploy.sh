@@ -8,12 +8,12 @@ cd ./deploy
 mkdir ./app && mkdir ./public
 
 # Copy
-cp -r ../app/* ./app
-cp -r ../public/* ./public
 cp ../tsconfig.json ./ && cp ../package.json ./ && cp ../package-lock.json ./
 cp ../next.config.ts ./ && cp ../next-env.d.ts ./
 cp ../postcss.config.js ./ && cp ../tailwind.config.ts ./
-
+cp -r ../app/* ./app
+cp -r ../public/* ./public
+cp ../auth.config.ts ./ && cp ../auth.ts ./ && cp ../middleware.ts ./
 # Deploy
 REMOTE="acme@dch5.snailbird.net"
 APPROOT="/acme-dashboard"
