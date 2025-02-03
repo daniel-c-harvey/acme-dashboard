@@ -16,7 +16,8 @@ const sql = postgres({
     host: process.env.POSTGRES_HOST,
     username: process.env.POSTGRES_USER,
     password: process.env.POSTGRES_PASSWORD,
-    database: process.env.POSTGRES_DATABASE
+    database: process.env.POSTGRES_DATABASE,
+    ssl: 'prefer'
 });
 
 export default sql;
