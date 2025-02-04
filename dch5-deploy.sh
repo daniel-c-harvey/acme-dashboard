@@ -14,6 +14,9 @@ cp ../postcss.config.js ./ && cp ../tailwind.config.ts ./
 cp -r ../app/* ./app
 cp -r ../public/* ./public
 cp ../auth.config.ts ./ && cp ../auth.ts ./ && cp ../middleware.ts ./
+
+rm -rf ./app/test
+
 # Deploy
 REMOTE="acme@dch5.snailbird.net"
 APPROOT="/acme-dashboard"
