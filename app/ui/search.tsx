@@ -2,7 +2,8 @@
 
 import { MagnifyingGlassIcon } from '@heroicons/react/24/outline';
 import {usePathname, useRouter, useSearchParams} from "next/navigation";
-import {useDebouncedCallback} from "use-debounce";
+import {debounce} from "@/app/lib/utils";
+import {ChangeEvent} from "react";
 
 export default function Search({ placeholder }: { placeholder: string }) {
     const searchParams = useSearchParams();
@@ -10,18 +11,17 @@ export default function Search({ placeholder }: { placeholder: string }) {
     const { replace } = useRouter();
 
     function handleSearch(query: string) {
-        const handleSearch = useDebouncedCallback((query) => {
-            const params = new URLSearchParams(searchParams);
-            params.set('page', '1');
-            if (query) {
-                params.set('query', query);
-            } else {
-                params.delete('query');
-            }
-            replace(`${pathname}?${params.toString()}`);
-            console.log(query);
-        }, 300);
+        const params = new URLSearchParams(searchParams);
+        params.set('page', '1');
+        if (query) {
+            params.set('query', query);
+        } else {
+            params.delete('query');
+        }
+        replace(`${pathname}?${params.toString()}`);
+        console.log(query);
     }
+    const debouncedHandleSearch = debounce((e: ChangeEvent<HTMLInputElement>) => handleSearch(e.target.value), 300);
 
     return (
         <div className="relative flex flex-1 flex-shrink-0">
@@ -31,9 +31,7 @@ export default function Search({ placeholder }: { placeholder: string }) {
           <input
             className="peer block w-full rounded-md border border-gray-200 py-[9px] pl-10 text-sm outline-2 placeholder:text-gray-500"
             placeholder={placeholder}
-            onChange={(e) => {
-                handleSearch(e.target.value);
-            }}
+            onChange={debouncedHandleSearch}
             defaultValue={searchParams.get('query')?.toString()}
           />
           <MagnifyingGlassIcon className="absolute left-3 top-1/2 h-[18px] w-[18px] -translate-y-1/2 text-gray-500 peer-focus:text-gray-900" />
